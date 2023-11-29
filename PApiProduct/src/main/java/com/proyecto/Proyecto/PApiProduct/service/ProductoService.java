@@ -10,8 +10,8 @@ public interface ProductoService {
     public List<Producto> findAll();
     public Page<Producto>findAll(int page, int size);
     public ProductoDto findById(Long id);
-    public Producto findByNombreProd(String nombreProd);
-    public Producto findByProductoSK(String productoSK);
+    public ProductoDto findByNombreProd(String nombreProd);
+    public ProductoDto findByProductoSK(String productoSK);
     public Producto add(Producto product);
     public Producto update(Producto product);
     public void delete(Long id);

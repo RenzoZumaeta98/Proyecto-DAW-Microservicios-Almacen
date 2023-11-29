@@ -16,5 +16,5 @@ public class Producto {
     private String codigoCat;
     private String codigoProv;
     private String productoSK;
-    
+    private String unidadMedida;
 }

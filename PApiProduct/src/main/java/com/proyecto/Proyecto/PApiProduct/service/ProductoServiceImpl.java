@@ -37,7 +37,7 @@ public class ProductoServiceImpl implements ProductoService{
     @Override
     public ProductoDto findById(Long id) {
        var message = "Product with id =" + id.toString() + "" + "Not Found";
-       Producto producto = productRepository.findById(id).get();
+       Producto producto = productRepository.findById(id).orElseThrow(()-> new EntityNotFoundException(message));
        Category category = restClientCategory.findByCodigoCat(producto.getCodigoCat());
        Proveedor proveedor = restClientProveedor.findByCodigoProv(producto.getCodigoProv());
        
@@ -45,6 +45,7 @@ public class ProductoServiceImpl implements ProductoService{
        productoDto.setId(producto.getId());
        productoDto.setNombreProd(producto.getNombreProd());
        productoDto.setProductoSK(producto.getProductoSK());
+       productoDto.setUnidadMedida(producto.getUnidadMedida());
        productoDto.setCategory(category);
        productoDto.setProveedor(proveedor);
        
@@ -52,19 +53,40 @@ public class ProductoServiceImpl implements ProductoService{
     }
 
     @Override
-    public Producto findByNombreProd(String nombreProd) {
+    public ProductoDto findByNombreProd(String nombreProd) {
          var message = "Product with name = " + nombreProd.toString() + "" + "Not Found";
-         return productRepository.findByNombreProd(nombreProd).orElseThrow(
-                    ()-> new EntityNotFoundException(message)
-               );
+         Producto producto = productRepository.findByNombreProd(nombreProd);
+         Category category = restClientCategory.findByCodigoCat(producto.getCodigoCat());
+         Proveedor proveedor = restClientProveedor.findByCodigoProv(producto.getCodigoProv());
+         ProductoDto productoDto = new ProductoDto();
+         
+        productoDto.setId(producto.getId());
+        productoDto.setNombreProd(producto.getNombreProd());
+        productoDto.setProductoSK(producto.getProductoSK());
+        productoDto.setUnidadMedida(producto.getUnidadMedida());
+        productoDto.setCategory(category);
+        productoDto.setProveedor(proveedor);
+         
+         return productoDto;
     }
     
     @Override
-    public Producto findByProductoSK(String productoSK) {
+    public ProductoDto findByProductoSK(String productoSK) {
          var message = "Product with SK = " + productoSK.toString() + "" + "Not Found";
-         return productRepository.findByProductoSK(productoSK).orElseThrow(
-                    ()-> new EntityNotFoundException(message)
-               );
+         
+         Producto producto = productRepository.findByProductoSK(productoSK);
+         Category category = restClientCategory.findByCodigoCat(producto.getCodigoCat());
+         Proveedor proveedor = restClientProveedor.findByCodigoProv(producto.getCodigoProv());
+         ProductoDto productoDto = new ProductoDto();
+         
+        productoDto.setId(producto.getId());
+        productoDto.setNombreProd(producto.getNombreProd());
+        productoDto.setProductoSK(producto.getProductoSK());
+        productoDto.setUnidadMedida(producto.getUnidadMedida());
+        productoDto.setCategory(category);
+        productoDto.setProveedor(proveedor);
+         
+         return productoDto;
     }
 
     @Override
@@ -79,6 +101,7 @@ public class ProductoServiceImpl implements ProductoService{
         productDB.setCodigoCat(product.getCodigoCat());
         productDB.setCodigoProv(product.getCodigoProv());
         productDB.setProductoSK(product.getProductoSK());
+        productDB.setUnidadMedida(product.getUnidadMedida());
         return productRepository.save(productDB);
     }
 

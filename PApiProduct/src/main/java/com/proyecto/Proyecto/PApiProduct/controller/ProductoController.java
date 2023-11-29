@@ -42,13 +42,13 @@ public class ProductoController {
                 HttpStatus.OK);
     }
     @GetMapping("/findByNombreProd/{nombreProd}")
-    public ResponseEntity<Producto> findByNombreProd(@PathVariable String nombreProd){
+    public ResponseEntity<ProductoDto> findByNombreProd(@PathVariable String nombreProd){
         return new ResponseEntity<>(productService.findByNombreProd(nombreProd),
                 HttpStatus.OK);
     }
     
     @GetMapping("/findByProductoSK/{productoSK}")
-    public ResponseEntity<Producto> findByProductoSK(@PathVariable String productoSK){
+    public ResponseEntity<ProductoDto> findByProductoSK(@PathVariable String productoSK){
         return new ResponseEntity<>(productService.findByProductoSK(productoSK),
                 HttpStatus.OK);
     }
