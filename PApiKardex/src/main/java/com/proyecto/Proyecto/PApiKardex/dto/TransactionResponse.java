@@ -14,10 +14,12 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class TransactionResponse {
-    public Kardex kardex;
-    public Usuario usuario;
-    public Almacen almacen;
-    public List<Producto> productos;
+//  public Kardex kardex = new Kardex();
+    public String mensaje = null;
+    
+//    public Usuario usuario;
+//    public Almacen almacen;
+//    public List<Producto> productos;
     
     
 }

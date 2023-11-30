@@ -37,17 +37,30 @@ public class KardexServiceImpl implements KardexService{
     public TransactionResponse placeKardex(Transaction transaction) {
         Kardex kardex = transaction.getKardex();
         transaction.getKardexItems().forEach(i->{kardex.addKardexItem(i);});
-        Usuario usuario = restClientUsuario.findByCodigoUsu(kardex.getCodigoUsu());
-        Almacen almacen = restClientAlmacen.findByCodigoAlm(kardex.getCodigoAlm());
-        
-        List<Producto> productos = new ArrayList<>();
-        transaction.getKardexItems().forEach(i->{productos.add(restClientProducto.findByProductoSK(i.getProductoSK()));});
+//        Usuario usuario = restClientUsuario.findByCodigoUsu(kardex.getCodigoUsu());
+//        Almacen almacen = restClientAlmacen.findByCodigoAlm(kardex.getCodigoAlm());
+//        
+//        List<Producto> productos = new ArrayList<>();
+//        transaction.getKardexItems().forEach(i->{productos.add(restClientProducto.findByProductoSK(i.getProductoSK()));});
         
         kardexRepository.save(kardex);
+        String mensaje ="Transaccion realizada";
         
         //Colocar metodos para sacar usuario, almacen kardexItems
-        return new TransactionResponse(kardex, usuario, almacen, productos);
+        return new TransactionResponse(mensaje);
     }
+
+    @Override
+    public Kardex findById(Long id) {
+        return kardexRepository.findById(id).get();
+    }
+
+    @Override
+    public List<Kardex> findAll() {
+        return (List<Kardex>)kardexRepository.findAll();
+    }
+    
+    
     
     
 }
